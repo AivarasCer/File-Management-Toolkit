@@ -1,6 +1,7 @@
 # Copies an entire folder and its contents into a ZIP file
 
-import zipfile, os
+import zipfile
+import os
 
 
 def backupToZip(folder):
@@ -38,3 +39,4 @@ def backupToZip(folder):
 
     backupZip.close()
     print('Done.')
+
