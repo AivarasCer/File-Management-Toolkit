@@ -19,7 +19,7 @@ def inverse_archiver(directory, exclude_extensions=None):
                             2. The compression efficiency, calculated as original size / compressed size.
     """
     base_path = Path(directory)
-    zip_filename = base_path / 'archive.zip'
+    zip_filename = base_path / 'inverse_archive.zip'
     original_size = 0
 
     with z.ZipFile(zip_filename, 'w', z.ZIP_DEFLATED) as zipf:
@@ -35,11 +35,12 @@ def inverse_archiver(directory, exclude_extensions=None):
 
     efficiency = original_size / compressed_size if compressed_size > 0 else 0
 
+    print(f'Archive created at: {zip_filename}')
     return zip_contents, efficiency
 
 
 def main():
-    parser = a.ArgumentParser(description='Selective Extension Archiver')
+    parser = a.ArgumentParser(description='Inverse Extension Archiver')
     parser.add_argument('directory', type=str, help='Directory to archive')
     parser.add_argument('-ex', '--exclude', nargs='*', help='File extensions to exclude from archiving')
     args = parser.parse_args()
