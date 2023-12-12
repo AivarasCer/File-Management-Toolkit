@@ -1,3 +1,7 @@
+# This script walks through a directory tree and archives every file except those with specified extensions.
+# It allows for comprehensive archiving while excluding certain file types.
+# Useful for general backups where common file types (like text and script files) need to be excluded.
+
 import argparse as a
 from pathlib import Path
 import zipfile as z
