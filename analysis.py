@@ -4,7 +4,7 @@
 # File Type Distribution Analyser: Analyses the distribution of different file types (like .txt, .jpg, .py, etc.) within a directory and its subdirectories.
 # Large File Finder: Identifies the largest files within a directory tree.
 
-import os
+import heapq
 from pathlib import Path
 from collections import Counter, defaultdict
 
@@ -75,8 +75,30 @@ def file_type_dist_analyser(directory):
     return file_types
 
 
-def large_type_finder():
-    pass
+def large_file_finder(directory, num_files=10):
+    """
+        Identifies the largest files within a directory tree.
+
+        Params:
+        directory (str): Path to the directory to analyze.
+        num_files (int): Number of top largest files to find.
+
+        Returns:
+        list: A list of tuples, each containing a file path and its size in bytes.
+    """
+    base_path = Path(directory)
+    largest_files = []
+
+    for file in base_path.rglob('*'):
+        if file.is_file():
+            file_size = file.stat().st_size
+            if len(largest_files) < num_files:
+                heapq.heappush(largest_files, (file_size, file))
+            else:
+                heapq.heappush(largest_files, (file_size, file))
+
+    largest_files.sort(reverse=True, key=lambda x: x[0])
+    return largest_files[:num_files]
 
 
 def main():
@@ -118,6 +140,19 @@ def main():
             elif directory_path == 'exit':
                 print('Exiting.')
                 break
+            else:
+                print('No files found in the given directory or directory is empty.')
+        elif user_choice == '4':
+            directory_path = input('Enter the path to the directory to analyze (Large Files): ')
+            if directory_path == 'exit':
+                print('Exiting.')
+                break
+            num_files_to_find = int(input('How many large files to find? '))
+            largest_files = large_file_finder(directory_path, num_files_to_find)
+            if largest_files:
+                print('Largest files found:')
+                for size, file in largest_files:
+                    print(f'{file}: {size} bytes.')
             else:
                 print('No files found in the given directory or directory is empty.')
         elif user_choice == '5':
