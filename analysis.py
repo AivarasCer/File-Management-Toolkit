@@ -1,7 +1,7 @@
 # Functions:
 # File Count Analyser: Finds the folder within a directory tree that contains the highest number of files.
 # Disk Space Analyser: Identifies the folder that occupies the most disk space.
-# File Type Distribution Analyzer: Analyses the distribution of different file types (like .txt, .jpg, .py, etc.) within a directory and its subdirectories.
+# File Type Distribution Analyser: Analyses the distribution of different file types (like .txt, .jpg, .py, etc.) within a directory and its subdirectories.
 # Large File Finder: Identifies the largest files within a directory tree.
 
 import os
@@ -55,8 +55,24 @@ def disk_space_analyser(directory):
     return max_space_folder, max_space
 
 
-def file_type_dist_analyser():
-    pass
+def file_type_dist_analyser(directory):
+    """
+        Analyzes the distribution of different file types within a directory and its subdirectories.
+
+        Params:
+        directory (str): Path to the directory to analyze.
+
+        Returns:
+        Counter: A Counter object containing file extensions and their counts.
+    """
+    base_path = Path(directory)
+    file_types = Counter()
+
+    for file in base_path.rglob('*'):
+        if file.is_file():
+            file_types[file.suffix] += 1
+
+    return file_types
 
 
 def large_type_finder():
@@ -73,31 +89,43 @@ def main():
                         '\n> ')
     while True:
         if user_choice == '1':
-            directory_path = input("Enter the path to the directory to analyse: ")
+            directory_path = input("Enter the path to the directory to analyse (File Count Analyser): ")
             folder, count = file_count_analyser(directory_path)
             if folder:
                 print(f'The folder with the most files is: {folder} with {count} files.')
             elif directory_path == 'exit':
-                print("Exiting.")
+                print('Exiting.')
                 break
             else:
-                print("No files found in the given directory.")
+                print('No files found in the given directory.')
         elif user_choice == '2':
-            directory_path = input("Enter the path to the directory to analyse: ")
+            directory_path = input('Enter the path to the directory to analyse (Disk Space Analyser): ')
             folder, space = disk_space_analyser(directory_path)
             if folder:
                 print(f'The folder occupying the most disk space is: {folder} using {space} bytes.')
             elif directory_path == 'exit':
-                print("Exiting.")
+                print('Exiting.')
                 break
             else:
-                print("No files found in the given directory or directory is empty.")
+                print('No files found in the given directory or directory is empty.')
+        elif user_choice == '3':
+            directory_path = input('Enter the path to the directory to analyze (File Type Distribution): ')
+            distribution = file_type_dist_analyser(directory_path)
+            if distribution:
+                print('File type distribution:')
+                for file_type, count in distribution.items():
+                    print(f" {file_type if file_type else 'No Extension'}: {count}")
+            elif directory_path == 'exit':
+                print('Exiting.')
+                break
+            else:
+                print('No files found in the given directory or directory is empty.')
         elif user_choice == '5':
-            print("Exiting.")
+            print('Exiting.')
             break
         else:
-            print("Invalid option. Please try again.")
+            print('Invalid option. Please try again.')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
