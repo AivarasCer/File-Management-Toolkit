@@ -9,7 +9,7 @@ from pathlib import Path
 from collections import Counter
 
 
-def file_count_analyzer(directory):
+def file_count_analyser(directory):
     """
         Analyzes the given directory to find the folder with the highest number of files.
 
@@ -30,20 +30,35 @@ def file_count_analyzer(directory):
     return most_common[0] if most_common else (None, 0)
 
 
+def disk_space_analyser():
+    pass
+
+
+def file_type_dist_analyser():
+    pass
+
+
+def large_type_finder():
+    pass
+
+
 def main():
     user_choice = input('Select function:'
                         '\n1. File Count Analyzer'
-                        '\n2. Exit'
+                        '\n5. Exit'
                         '\n> ')
     while True:
         if user_choice == '1':
             directory_path = input("Enter the path to the directory to analyze: ")
-            folder, count = file_count_analyzer(directory_path)
+            folder, count = file_count_analyser(directory_path)
             if folder:
                 print(f'The folder with the most files is: {folder} with {count} files.')
+            elif directory_path == 'exit':
+                print("Exiting.")
+                break
             else:
                 print("No files found in the given directory.")
-        elif user_choice == '2':
+        elif user_choice == '5':
             print("Exiting.")
             break
         else:
