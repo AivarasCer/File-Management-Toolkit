@@ -53,7 +53,25 @@ class BatchFileRenamer:
 
 
 def main():
-    pass
+    while True:
+        user_choice = int(input('Select function:'
+                                '\n1. Rename by file type'
+                                '\n4. Exit'
+                                '\n> '))
+
+        if user_choice == 1:
+            directory_path = input('Enter the path to the directory: ')
+            extension = input('Enter the desired file extension (e.g. .txt): ')
+            base_name = input('Enter the base name for renaming: ')
+
+            renamer = BatchFileRenamer(directory_path, base_name)
+            renamer.file_type_renamer(extension)
+            print('Renaming complete.')
+        elif user_choice == 4:
+            print('Exiting the program.')
+            break
+        else:
+            print('Invalid input. Please try again.')
 
 if __name__ == '__main__':
     main()
