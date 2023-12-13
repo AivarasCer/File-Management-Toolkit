@@ -7,21 +7,31 @@ from pathlib import Path
 
 class BatchFileRenamer:
 
-    def file_type_renamer(self, directory, extension):
+    def __init__(self, directory, name='renamed'):
+        self.directory = directory
+        self.name = name
+
+    def file_type_renamer(self, extension):
         """
             Renames files in the directory based on their file type (extension).
-            Logic:
-                - Traverse the directory.
-                - For each file matching the specified file type, rename it according to a specific pattern.
         """
-        # base_path = Path(directory)
-        #
-        # for file in base_path.rglob('*'):
-        #     if file.is_file() and file.suffix in extension:
+        base_path = Path(self.directory)
+        count = 1
 
-        pass
+        for file in base_path.rglob('*'):
+            if file.is_file() and file.suffix == extension:
+                new_name = f'{self.name}_{count:03}{extension}'
 
-    def file_date_renamer(self, directory, date):
+                new_file_path = file.parent / new_name
+
+                # Check if file with new name already exists
+                if not new_file_path.exists():
+                    file.rename(new_file_path)
+                    count += 1
+                else:
+                    print(f'File {new_file_path} already exists. Skipping.')
+
+    def file_date_renamer(self, date):
         """
             Renames files in the directory based on their creation/modification date.
             Logic:
@@ -31,7 +41,7 @@ class BatchFileRenamer:
         """
         pass
 
-    def custom_renamer(self, directory, file_type):
+    def custom_renamer(self):
         """
             Renames files in the directory based on a custom naming pattern.
             Logic:
