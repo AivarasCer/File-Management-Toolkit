@@ -2,6 +2,7 @@
 # Script that automatically renames files in a directory based on certain criteria, like date, file type, or a custom naming scheme.
 # This can be particularly useful for organizing photos, documents, or other media.
 
+import datetime
 from pathlib import Path
 
 
@@ -31,7 +32,7 @@ class BatchFileRenamer:
                 else:
                     print(f'File {new_file_path} already exists. Skipping.')
 
-    def file_date_renamer(self, date):
+    def file_date_renamer(self, date_format='%Y%m%d'):
         """
             Renames files in the directory based on their creation/modification date.
             Logic:
@@ -39,7 +40,22 @@ class BatchFileRenamer:
                 - For each file, retrieve its creation/modification date.
                 - Rename the file incorporating the date in the specified format.
         """
-        pass
+        base_path = Path(self.directory)
+        count = 1
+
+        for file in base_path.rglob('*'):
+            if file.is_file():
+                mod_time = datetime.datetime.fromtimestamp(file.stat().st_mtime)
+                formatted_date = mod_time.strftime(date_format)
+
+                new_name = f'{self.name}_{formatted_date}_{count:03}{file.suffix}'
+                new_file_path = file.parent / new_name
+
+                if not new_file_path.exists():
+                    file.rename(new_file_path)
+                    count += 1
+                else:
+                    print(f'File {new_file_path} already exists. Skipping.')
 
     def custom_renamer(self):
         """
