@@ -83,6 +83,7 @@ def main():
         user_choice = int(input('Select function:'
                                 '\n1. Rename by file type'
                                 '\n2. Rename by file date'
+                                '\n3. Custom Renamer'
                                 '\n4. Exit'
                                 '\n> '))
 
@@ -103,6 +104,15 @@ def main():
             renamer = BatchFileRenamer(directory_path, base_name)
             renamer.file_date_renamer(date)
             print("Renaming by file date completed.")
+
+        elif user_choice == 3:
+            directory_path = input('Enter the path to the directory: ')
+            pattern = input('Enter the pattern (Regex) to search by: ')
+            base_name = input('Enter the base name for renaming: ')
+
+            renamer = BatchFileRenamer(directory_path, base_name)
+            renamer.custom_renamer(pattern)
+            print("Renaming by custom pattern completed.")
 
         elif user_choice == 4:
             print('Exiting the program.')
