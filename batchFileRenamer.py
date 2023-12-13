@@ -2,6 +2,7 @@
 # Script that automatically renames files in a directory based on certain criteria, like date, file type, or a custom naming scheme.
 # This can be particularly useful for organizing photos, documents, or other media.
 
+import re
 import datetime
 from pathlib import Path
 
@@ -55,15 +56,26 @@ class BatchFileRenamer:
                     else:
                         print(f'File {new_file_path} already exists. Skipping.')
 
-    def custom_renamer(self):
+    def custom_renamer(self, pattern):
         """
-            Renames files in the directory based on a custom naming pattern.
-            Logic:
-                - Traverse the directory.
-                - Rename each file according to the custom pattern provided.
-                - The pattern might include sequence numbers, user-defined strings, etc.
+            Renames files in the directory based on a custom naming pattern (Regex).
         """
-        pass
+        base_path = Path(self.directory)
+        count = 1
+
+        compiled_pattern = re.compile(pattern)
+
+        for file in base_path.rglob('*'):
+            if file.is_file() and compiled_pattern.search(file.name):
+                new_name = f'{self.name}_{count:03}{file.suffix}'
+
+                new_file_path = file.parent / new_name
+
+                if not new_file_path.exists():
+                    file.rename(new_file_path)
+                    count += 1
+                else:
+                    print(f'File {new_file_path} already exists. Skipping.')
 
 
 def main():
