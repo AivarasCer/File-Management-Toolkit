@@ -1,4 +1,8 @@
-![fmt (1).png](static%2Ffmt%20%281%29.png)
+
+<p align="center">
+  <img src="static/fmt (1).png" alt="Logo Description" width="250" height="250"/>
+</p>
+
 # File Management Toolkit
 ### Project Description:
 
