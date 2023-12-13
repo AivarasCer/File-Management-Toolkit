@@ -1,5 +1,5 @@
 # Batch File Renamer
-# Script that automatically renames files in a directory based on certain criteria, like date, file type, or a custom naming scheme.
+# Script that automatically renames files in a directory based on certain criteria, like date, file type, or regex.
 # This can be particularly useful for organizing photos, documents, or other media.
 
 import re
