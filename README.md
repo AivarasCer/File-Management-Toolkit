@@ -10,16 +10,19 @@ This repository hosts a collection of Python scripts designed to streamline file
 
 ### Key Features:
 
-Batch File Renamer: Automatically renames files in a directory based on customizable criteria (date, type, custom pattern).
-Duplicate File Finder: Scans directories to identify and handle duplicate files, aiding in decluttering and optimizing storage space.
-File Format Converter: Converts files between various formats (e.g., image, text, audio) with support for batch processing.
-Directory Organizer: Sorts files into categorized folders based on type, name, or other attributes.
-Automated Backup Utility: Performs regular backups of designated directories to local or cloud storage.
-Bulk Image Resizer: Resizes multiple images simultaneously, ideal for web development and digital media management.
-Metadata Editor: Edits or strips metadata from files, particularly useful for images and PDFs.
-File Encryption/Decryption: Provides added security for sensitive documents through encryption and decryption capabilities.
-Log File Analyzer: Parses log files to extract and report critical information, aiding in system monitoring and troubleshooting.
-Automated Data Report Generator: Compiles data from various files into comprehensive reports.
-Getting Started:
+- Inverse Archiver: Tool that allows for comprehensive archiving while excluding certain file types.
+- Selective Archiver: Tool for targeted approach for archiving, letting you focus on specific file types while excluding others.
+- Analysis Tool: Provides functions like File Count Analyser, Disk Space Analyser, File Type Distribution Analyser and Large File Finder.
+- Batch File Renamer: Automatically renames files in a directory based on customizable criteria (date, type, custom pattern).
+- Duplicate File Finder: Scans directories to identify and handle duplicate files, aiding in decluttering and optimizing storage space.
+- File Format Converter: Converts files between various formats (e.g., image, text, audio) with support for batch processing.
+- Directory Organizer: Sorts files into categorized folders based on type, name, or other attributes.
+- Automated Backup Utility: Performs regular backups of designated directories to local or cloud storage.
+- Bulk Image Resizer: Resizes multiple images simultaneously, ideal for web development and digital media management.
+- Metadata Editor: Edits or strips metadata from files, particularly useful for images and PDFs.
+- File Encryption/Decryption: Provides added security for sensitive documents through encryption and decryption capabilities.
+- Log File Analyzer: Parses log files to extract and report critical information, aiding in system monitoring and troubleshooting.
+- Automated Data Report Generator: Compiles data from various files into comprehensive reports.
+
 
 Each script is self-contained and documented with instructions on usage and requirements. Clone the repository, and navigate to the script that fits your task. Scripts are designed to be user-friendly, requiring minimal setup.
