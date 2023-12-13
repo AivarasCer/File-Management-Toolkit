@@ -32,30 +32,28 @@ class BatchFileRenamer:
                 else:
                     print(f'File {new_file_path} already exists. Skipping.')
 
-    def file_date_renamer(self, date_format='%Y%m%d'):
+    def file_date_renamer(self, target_date, date_format='%Y-%m-%d'):
         """
             Renames files in the directory based on their creation/modification date.
-            Logic:
-                - Traverse the directory.
-                - For each file, retrieve its creation/modification date.
-                - Rename the file incorporating the date in the specified format.
         """
         base_path = Path(self.directory)
         count = 1
 
+        target_datetime = datetime.datetime.strptime(target_date, date_format)
+
         for file in base_path.rglob('*'):
             if file.is_file():
-                mod_time = datetime.datetime.fromtimestamp(file.stat().st_mtime)
-                formatted_date = mod_time.strftime(date_format)
+                file_mod_time = datetime.datetime.fromtimestamp(file.stat().st_mtime)
 
-                new_name = f'{self.name}_{formatted_date}_{count:03}{file.suffix}'
-                new_file_path = file.parent / new_name
+                if file_mod_time.date() == target_datetime.date():
+                    new_name = f'{self.name}_{count:03}{file.suffix}'
+                    new_file_path = file.parent / new_name
 
-                if not new_file_path.exists():
-                    file.rename(new_file_path)
-                    count += 1
-                else:
-                    print(f'File {new_file_path} already exists. Skipping.')
+                    if not new_file_path.exists():
+                        file.rename(new_file_path)
+                        count += 1
+                    else:
+                        print(f'File {new_file_path} already exists. Skipping.')
 
     def custom_renamer(self):
         """
@@ -72,6 +70,7 @@ def main():
     while True:
         user_choice = int(input('Select function:'
                                 '\n1. Rename by file type'
+                                '\n2. Rename by file date'
                                 '\n4. Exit'
                                 '\n> '))
 
@@ -83,9 +82,20 @@ def main():
             renamer = BatchFileRenamer(directory_path, base_name)
             renamer.file_type_renamer(extension)
             print('Renaming complete.')
+
+        elif user_choice == 2:
+            directory_path = input('Enter the path to the directory: ')
+            date = input('Enter date (e.g. 2023-12-13): ')
+            base_name = input('Enter the base name for renaming: ')
+
+            renamer = BatchFileRenamer(directory_path, base_name)
+            renamer.file_date_renamer(date)
+            print("Renaming by file date completed.")
+
         elif user_choice == 4:
             print('Exiting the program.')
             break
+
         else:
             print('Invalid input. Please try again.')
 
