@@ -1,4 +1,4 @@
-![fmt (1).png](..%2F..%2F..%2Ffmt%20%281%29.png)
+![fmt (1).png](static%2Ffmt%20%281%29.png)
 # File Management Toolkit
 ### Project Description:
 
