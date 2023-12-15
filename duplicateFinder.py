@@ -32,7 +32,7 @@ class DublicateFileFinder:
         base_path = Path(self.directory)
 
         for file_path in base_path.rglob('*'):
-            if file_path.is_file():
+            if file_path.is_file() and not file_path.is_symlink():
                 file_hash = self.generate_hash(file_path)
 
                 files_by_hash[file_hash].append(file_path)
