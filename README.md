@@ -8,9 +8,9 @@
 
 This repository hosts a collection of Python scripts designed to streamline file organization, management, and transformation tasks. Tailored for efficiency and ease of use, this toolkit addresses common file handling needs such as renaming, sorting, and converting file formats, as well as offering utilities for file encryption and log analysis. Each script in this collection is standalone, allowing users to deploy them individually based on their specific requirements.
 
-### Key Features:
+### Features:
 
-- Inverse Archiver: Tool that allows for comprehensive archiving while excluding certain file types.
+- Bulk Archiver: Tool that allows for comprehensive archiving while excluding certain file types.
 - Selective Archiver: Tool for targeted approach for archiving, letting you focus on specific file types while excluding others.
 - Analysis Tool: Provides functions like File Count Analyser, Disk Space Analyser, File Type Distribution Analyser and Large File Finder.
 - Batch File Renamer: Automatically renames files in a directory based on customizable criteria (date, type, custom pattern).
