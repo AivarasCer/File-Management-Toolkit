@@ -41,7 +41,19 @@ class DublicateFileFinder:
 
 
 def main():
-    pass
+    directory = input("Enter the path to the directory to scan for duplicates: ")
+    finder = DublicateFileFinder(directory)
+    duplicates = finder.find_duplicates()
+
+    if duplicates:
+        print('Duplicate files found:')
+        for hash_val, files in duplicates.items():
+            print(f"Hash: {hash_val}")
+            for file in files:
+                print(f" - {file}")
+    else:
+        print("No duplicate files found.")
+
 
 if __name__ == '__main__':
     main()
