@@ -1,7 +1,8 @@
 # Directory Organizer
-# Script that sorts files into folders based on file type, name, or date.
-# For instance, all .jpg files go into an 'Images' folder, all .docx files into a 'Documents' folder, etc.
+# Script that sorts files into folders based on file type, name (regex), or date.
+# For instance, all .jpg files go into an 'Jpg' folder, all .docx files into a 'Docx' folder, etc.
 
+import re
 from pathlib import Path
 
 
@@ -20,8 +21,16 @@ class DirectoryOrganiser:
                 file.rename(destination_folder / file.name)
                 print(f'Moved {file.name} to {destination_folder}')
 
-    def organise_by_name(self):
-        pass
+    def organise_by_name(self, pattern, folder_name):
+        """ Organizes files based on a regex pattern in their names. """
+        compiled_pattern = re.compile(pattern)
+        destination_folder = self.directory / folder_name
+        destination_folder.mkdir(exist_ok=True)
+
+        for file in self.directory.glob('*'):
+            if file.is_file() and compiled_pattern.search(file.name):
+                file.rename(destination_folder / file.name)
+                print(f'Moved {file.name} to {destination_folder}')
 
     def organise_by_date(self):
         pass
@@ -41,7 +50,9 @@ def main():
         print('Files were successfully organised by type.')
 
     elif user_choice == 2:
-        organiser.organise_by_name()
+        pattern = input('Enter the regex pattern: ')
+        dir_name = input('Enter the folder name: ')
+        organiser.organise_by_name(pattern, dir_name)
         print('Files were successfully organised by name.')
 
     elif user_choice == 3:
@@ -49,7 +60,7 @@ def main():
         print('Files were successfully organised by date.')
 
     elif user_choice == 4:
-        print('Exiting')
+        print('Exiting.')
 
 
 if __name__ == "__main__":
