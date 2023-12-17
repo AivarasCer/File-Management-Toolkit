@@ -18,7 +18,7 @@ This repository hosts a collection of Python scripts designed to streamline file
 - Directory Organizer: Sorts files into categorized folders based on type, name (regex), or date.
 - Automated Backup Utility: Performs regular backups of designated directories to local or cloud storage.
 - Bulk Image Resizer: Resizes multiple images simultaneously, ideal for web development and digital media management.
-- Metadata Editor: Edits or strips metadata from files, particularly useful for images and PDFs.
+- Metadata Editor: Views or strips metadata from jpg files.
 - File Encryption/Decryption: Provides added security for sensitive documents through encryption and decryption capabilities.
 - Log File Analyzer: Parses log files to extract and report critical information, aiding in system monitoring and troubleshooting.
 - Automated Data Report Generator: Compiles data from various files into comprehensive reports.
