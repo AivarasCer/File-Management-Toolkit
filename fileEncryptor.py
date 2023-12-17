@@ -3,7 +3,6 @@
 # This can add an extra layer of security to your important documents.
 
 from cryptography.fernet import Fernet
-from pathlib import Path
 
 
 class FileEncryptor:
@@ -12,7 +11,7 @@ class FileEncryptor:
         self.key = key if key else Fernet.generate_key()
 
     @staticmethod
-    def generate_key(self):
+    def generate_key():
         return Fernet.generate_key()
 
     def encrypt_file(self, file_path):
@@ -24,14 +23,20 @@ class FileEncryptor:
             file.write(encrypted_data)
 
     def decrypt_file(self, file_path):
-        pass
+        with open(file_path, 'rb') as file:
+            encrypted_data = file.read()
+        fernet = Fernet(self.key)
+        decrypted_data = fernet.decrypt(encrypted_data)
+        with open(file_path, 'wb') as file:
+            file.write(decrypted_data)
 
 
 def main():
     user_choice = int(input('Choose action:'
                             '\n1. Encrypt file'
                             '\n2. Decrypt file'
-                            '\n3. Exit'))
+                            '\n3. Exit'
+                            '\n> '))
     file_path = input('Enter the full path of the file: ')
     key_input = input('Enter the encryption/decryption key (leave blank to generate a new one): ')
 
@@ -43,7 +48,7 @@ def main():
 
     if user_choice == 1:
         encryptor.encrypt_file(file_path)
-        print('File {file_path} encrypted.')
+        print(f'File {file_path} encrypted.')
 
     elif user_choice == 2:
         encryptor.decrypt_file(file_path)
