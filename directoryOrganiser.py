@@ -3,6 +3,7 @@
 # For instance, all .jpg files go into an 'Jpg' folder, all .docx files into a 'Docx' folder, etc.
 
 import re
+import datetime
 from pathlib import Path
 
 
@@ -33,7 +34,16 @@ class DirectoryOrganiser:
                 print(f'Moved {file.name} to {destination_folder}')
 
     def organise_by_date(self):
-        pass
+        """ Organizes files into folders based on their modification date. """
+        for file in self.directory.glob('*'):
+            if file.is_file():
+                mod_time = datetime.datetime.fromtimestamp(file.stat().st_mtime)
+                folder_name = mod_time.strftime('%Y-%m-%d')
+                destination_folder = self.directory / folder_name
+                destination_folder.mkdir(exist_ok=True)
+
+                file.rename(destination_folder / file.name)
+                print(f'Moved {file.name} to {destination_folder}')
 
 
 def main():
