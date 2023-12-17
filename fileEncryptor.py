@@ -11,11 +11,17 @@ class FileEncryptor:
     def __init__(self, key=None):
         self.key = key if key else Fernet.generate_key()
 
+    @staticmethod
     def generate_key(self):
         return Fernet.generate_key()
 
     def encrypt_file(self, file_path):
-        pass
+        with open(file_path, 'rb') as file:
+            data = file.read()
+        fernet = Fernet(self.key)
+        encrypted_data = fernet.encrypt(data)
+        with open(file_path, 'wb') as file:
+            file.write(encrypted_data)
 
     def decrypt_file(self, file_path):
         pass
