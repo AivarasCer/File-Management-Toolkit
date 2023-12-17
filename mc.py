@@ -30,7 +30,10 @@ class MultiClip:
                 print(f"No text found for key '{key}'.")
 
     def list_clipboard_keys(self):
-        pass
+        with shelve.open(self.db_path) as storage:
+            print('Clipboard contents:')
+            for key in storage:
+                print(f'{key}: {storage[key]}\n')
 
 
 def main():
@@ -41,6 +44,12 @@ def main():
 
     elif len(sys.argv) == 3 and sys.argv[1].lower() == 'load':
         clipboarder.load_from_clipboard(sys.argv[2])
+
+    elif len(sys.argv) == 2 and sys.argv[1].lower() == 'list':
+        clipboarder.list_clipboard_keys()
+
+    else:
+        print('Usage: py mc.py save/load/list <key>')
 
 
 if __name__ == "__main__":
