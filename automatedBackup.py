@@ -1,6 +1,7 @@
 # Automated Backup Script
 # Program that automatically backs up specified directories to a local drive after each addition/edit
 
+import shutil
 from pathlib import Path
 from watchdog.events import FileSystemEventHandler
 
@@ -12,13 +13,19 @@ class BackupHandler(FileSystemEventHandler):
         self.backup_dir = Path(backup_dir)
 
     def on_modified(self, event):
-        pass
+        if not event.is_directory:
+            self.backup_file(event.src_path)
 
     def on_created(self, event):
-        pass
+        if not event.is_directory:
+            self.backup_file(event.src_path)
 
     def backup_file(self, path):
-        pass
+        relative_path = Path(path).relative_to(self.source_dir)
+        destination = self.backup_dir / relative_path
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(path, destination)
+        print(f'Backp created for: {path}')
 
 
 def start_backup(monitor_dir, backup_dir):
