@@ -19,6 +19,7 @@ This repository hosts a collection of Python scripts designed to streamline file
 - Automated Backup Utility: Performs regular backups of designated directories to local or cloud storage.
 - Bulk Image Resizer: Resizes multiple images simultaneously, ideal for web development and digital media management.
 - File Encryption/Decryption: Provides added security for sensitive documents through encryption and decryption capabilities.
+- Multi-Clipboard: This utility is for seamlessly saving and retrieving text snippets to and from the clipboard, enhancing productivity with simple command-line interactions.
 
 
-Each script is self-contained and documented with instructions on usage and requirements. Clone the repository, and navigate to the script that fits your task. Scripts are designed to be user-friendly, requiring minimal setup.
+Each script is self-contained and documented with instructions on usage and requirements. Clone the repository, install `requirements.txt` and navigate to the script that fits your task. Scripts are designed to be user-friendly, requiring minimal setup.
