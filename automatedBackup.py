@@ -2,8 +2,10 @@
 # Program that automatically backs up specified directories to a local drive after each addition/edit
 
 import shutil
+import time
 from pathlib import Path
 from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
 
 
 class BackupHandler(FileSystemEventHandler):
@@ -29,7 +31,17 @@ class BackupHandler(FileSystemEventHandler):
 
 
 def start_backup(monitor_dir, backup_dir):
-    pass
+    event_handler = BackupHandler(monitor_dir, backup_dir)
+    observer = Observer()
+    observer.schedule(event_handler, monitor_dir, recursive=True)
+    observer.start()
+
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()
 
 if __name__ == "__main__":
     monitor = input('Enter the path to the directory to monitor: ')
