@@ -1,5 +1,5 @@
 # Directory Handler
-# It is a program that automatically moves files from a specified source directory to a destination directory.
+# It is a program that automatically moves and renames files from a specified source dir to a destination dir.
 
 import time
 from pathlib import Path
