@@ -16,6 +16,7 @@ This repository hosts a collection of Python scripts designed to streamline file
 - Batch File Renamer: Automatically renames files in a directory based on customizable criteria (date, type, custom pattern).
 - Duplicate File Finder: Scans directories to identify and handle duplicate files, aiding in decluttering and optimizing storage space.
 - Directory Organizer: Sorts files into categorized folders based on type, name (regex), or date.
+- Directory Handler: Versatile program that automatically moves files from a specified source directory to a destination directory, ideal for real-time file organization and management tasks.
 - Automated Backup Utility: Performs regular backups of designated directories to local or cloud storage.
 - Bulk Image Resizer: Resizes multiple images simultaneously, ideal for web development and digital media management.
 - File Encryption/Decryption: Provides added security for sensitive documents through encryption and decryption capabilities.
