@@ -3,14 +3,19 @@
 import customtkinter as ctk
 
 
-def button_callback():
-    print("button clicked")
+class App(ctk.CTk):
 
-app = ctk.CTk()
-app.geometry('400x150')
-app.title('File Management Toolkit')
+    def __init__(self):
+        super().__init__()
+        self.geometry('400x150')
+        self.title('File Management Toolkit')
 
-button = ctk.CTkButton(app, text="my button", command=button_callback)
-button.pack(padx=20, pady=20)
+        self.button = ctk.CTkButton(self, text="my button", command=self.button_callback)
+        self.button.pack(padx=20, pady=20)
 
+    def button_callback(self):
+        print("button clicked")
+
+
+app = App()
 app.mainloop()
