@@ -1,7 +1,6 @@
 # Directory Handler
-#
+# It is a program that automatically moves files from a specified source directory to a destination directory.
 
-import json
 import time
 from pathlib import Path
 from watchdog.observers import Observer
@@ -20,3 +19,21 @@ class DirHandler(FileSystemEventHandler):
                 new_destination = self.destination_dir / filename.name
                 filename.rename(new_destination)
 
+
+def start_handling(folder_to_track, destination_dir):
+    event_handler = DirHandler(folder_to_track, destination_dir)
+    observer = Observer()
+    observer.schedule(event_handler, folder_to_track, recursive=True)
+    observer.start()
+
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()
+
+if __name__ == "__main__":
+    dir_to_track = input('Enter the path to the directory to track: ')
+    destination = input('Enter the path to the destination directory: ')
+    start_handling(dir_to_track, destination)
