@@ -12,12 +12,17 @@ class DirHandler(FileSystemEventHandler):
     def __init__(self, folder_to_track, destination_dir):
         self.dir_to_track = Path(folder_to_track)
         self.destination_dir = Path(destination_dir)
+        self.i = 1
 
     def on_modified(self, event):
         for filename in self.dir_to_track.iterdir():
             if filename.is_file():
-                new_destination = self.destination_dir / filename.name
+                new_filename = f'{filename.name}_{self.i}'
+                new_destination = self.destination_dir / new_filename
+
                 filename.rename(new_destination)
+                print(f"Moved and renamed {filename} to {new_destination}")
+                self.i += 1
 
 
 def start_handling(folder_to_track, destination_dir):
