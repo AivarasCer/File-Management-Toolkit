@@ -24,7 +24,7 @@ def bulk_archiver(directory, exclude_extensions=None):
 
     with z.ZipFile(zip_filename, 'w', z.ZIP_DEFLATED) as zipf:
         for file_path in base_path.rglob('*'):
-            if file_path.is_file() and (exclude_extensions is None or file_path.suffix not in exclude_extensions):
+            if file_path.is_file() and file_path != zip_filename and (exclude_extensions is None or file_path.suffix not in exclude_extensions):
                 zipf.write(file_path, file_path.relative_to(base_path))
                 original_size += file_path.stat().st_size
 
