@@ -7,7 +7,7 @@ from pathlib import Path
 import zipfile as z
 
 
-def inverse_archiver(directory, exclude_extensions=None):
+def bulk_archiver(directory, exclude_extensions=None):
     """
     Archives files in a given directory, optionally excluding files with specified extensions.
 
@@ -45,7 +45,7 @@ def main():
     parser.add_argument('-ex', '--exclude', nargs='*', help='File extensions to exclude from archiving')
     args = parser.parse_args()
 
-    contents, efficiency = inverse_archiver(args.directory, exclude_extensions=set(args.exclude) if args.exclude else None)
+    contents, efficiency = bulk_archiver(args.directory, exclude_extensions=set(args.exclude) if args.exclude else None)
     print("Files in ZIP:", contents)
     print("Compression Efficiency: {:.2f}".format(efficiency))
 
