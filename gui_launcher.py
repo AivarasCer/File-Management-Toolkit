@@ -2,6 +2,8 @@
 
 import threading
 import customtkinter as ctk
+import tkinter.messagebox
+
 from bulkArchiver import bulk_archiver
 
 
@@ -33,12 +35,15 @@ class App(ctk.CTk):
         exclude_str = self.exclude_entry.get()
         exclude_extensions = set(exclude_str.split(',')) if exclude_str else None
 
+        # Threading for long-running operations
         threading.Thread(target=self.run_archiving, args=(directory, exclude_extensions)).start()
 
     def run_archiving(self, directory, exclude_extensions):
         contents, efficiency = bulk_archiver(directory, exclude_extensions)
+        tkinter.messagebox.showinfo("Archiving Complete", "Archiving is complete")
         print('Files in ZIP:', contents)
         print('Compression Efficiency: {:.2f}'.format(efficiency))
+
 
 app = App()
 app.mainloop()
