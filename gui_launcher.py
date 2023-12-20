@@ -3,7 +3,7 @@
 import threading
 import customtkinter as ctk
 import tkinter.messagebox
-from tkinter import Label, Canvas
+from tkinter import Label
 from PIL import Image, ImageTk
 from pathlib import Path
 
@@ -44,7 +44,7 @@ class BulkArchiver(ctk.CTkFrame):
 
         # Logo
         base_path = Path(__file__).parent
-        logo_path = base_path / 'static' / 'logo.png'
+        logo_path = base_path / 'static' / 'ba_logo.png'
         pil_image = Image.open(logo_path)
         pil_image = pil_image.resize((100, 100), Image.Resampling.LANCZOS)
         self.logo_image = ImageTk.PhotoImage(pil_image)
