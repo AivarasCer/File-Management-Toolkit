@@ -239,9 +239,23 @@ class DirOrganiser(ctk.CTkFrame):
         self.title_label = ctk.CTkLabel(self, text="Directory Organizer", font=("Arial", 25))
         self.title_label.pack()
 
+        # Browse for Directory
+        self.directory_label = ctk.CTkLabel(self, text='Directory:')
+        self.directory_label.pack(padx=20, pady=10)
+        self.directory_entry = ctk.CTkEntry(self)
+        self.directory_entry.pack(padx=20, pady=10)
+        self.browse_button = ctk.CTkButton(self, text='Browse', command=self.browse_directory)
+        self.browse_button.pack(padx=20, pady=10)
+
         # Help button
         self.help_button = ctk.CTkButton(self, text='?', width=20, height=20, command=self.show_help_popup)
         self.help_button.place(relx=1.0, rely=0.0, x=-20, y=20, anchor="ne")
+
+    def browse_directory(self):
+        directory = filedialog.askdirectory()
+        if directory:
+            self.directory_entry.delete(0, 'end')
+            self.directory_entry.insert(0, directory)
 
     def show_help_popup(self):
         popup = Toplevel(self)
