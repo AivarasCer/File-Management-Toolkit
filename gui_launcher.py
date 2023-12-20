@@ -60,7 +60,6 @@ class BulkArchiver(ctk.CTkFrame):
         base_path = Path(__file__).parent
         logo_path = base_path / 'static' / 'ba_logo.png'
         pil_image = Image.open(logo_path)
-        pil_image = pil_image.resize((100, 100), Image.Resampling.LANCZOS)
         self.logo_image = ImageTk.PhotoImage(pil_image)
         self.logo_label = Label(self, image=self.logo_image, bg=self['bg'], borderwidth=0, highlightthickness=0)
         self.logo_label.pack(pady=20)
@@ -135,6 +134,42 @@ class BulkArchiver(ctk.CTkFrame):
 class SelectiveArchiver(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
+
+        # Logo
+        base_path = Path(__file__).parent
+        logo_path = base_path / 'static' / 'sa_logo.png'
+        pil_image = Image.open(logo_path)
+        self.logo_image = ImageTk.PhotoImage(pil_image)
+        self.logo_label = Label(self, image=self.logo_image, bg=self['bg'], borderwidth=0, highlightthickness=0)
+        self.logo_label.pack(pady=20)
+
+        # Title text
+        self.title_label = ctk.CTkLabel(self, text="Selective Archiver", font=("Arial", 25))
+        self.title_label.pack()
+
+        # Help button
+        self.help_button = ctk.CTkButton(self, text='?', width=20, height=20, command=self.show_help_popup)
+        self.help_button.place(relx=1.0, rely=0.0, x=-20, y=20, anchor="ne")
+
+    def show_help_popup(self):
+        popup = Toplevel(self)
+        popup.title("Help")
+        popup.geometry("420x300")
+        Label(popup, text='''
+        Selective Archiver - File Management Toolkit
+        ---------------------------------------
+        This program helps you to archive the file types in a selected directory.
+
+        Features:
+        - Browse and select a directory to archive.
+        - Indicate the specific file extensions for archiving.
+        - View archiving status and results.
+
+        How to Use:
+        1. Click 'Browse' to select a directory.
+        2. Enter file extensions to archive.
+        3. Click 'Archive' to start the archiving process.''',
+              justify="left").pack(padx=10, pady=10)
 
 
 if __name__ == '__main__':
