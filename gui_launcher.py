@@ -155,6 +155,16 @@ class SelectiveArchiver(ctk.CTkFrame):
         self.browse_button = ctk.CTkButton(self, text='Browse', command=self.browse_directory)
         self.browse_button.pack(padx=20, pady=10)
 
+        # Input for extensions to archieve
+        self.exclude_label = ctk.CTkLabel(self, text='Enter Extensions (comma-separated):')
+        self.exclude_label.pack(padx=20, pady=10)
+        self.exclude_entry = ctk.CTkEntry(self)
+        self.exclude_entry.pack(padx=20, pady=10)
+
+        # Button to execute selective_archiver
+        self.archive_button = ctk.CTkButton(self, text='Archive', command=self.archive_files)
+        self.archive_button.pack(padx=20, pady=10)
+
         # Help button
         self.help_button = ctk.CTkButton(self, text='?', width=20, height=20, command=self.show_help_popup)
         self.help_button.place(relx=1.0, rely=0.0, x=-20, y=20, anchor="ne")
@@ -164,6 +174,20 @@ class SelectiveArchiver(ctk.CTkFrame):
         if directory:
             self.directory_entry.delete(0, 'end')
             self.directory_entry.insert(0, directory)
+
+    def archive_files(self):
+        directory = self.directory_entry.get()
+        exclude_str = self.exclude_entry.get()
+        extensions = set(exclude_str.split(','))
+
+        # Threading for long-running operations
+        threading.Thread(target=self.run_archiving, args=(directory, extensions)).start()
+
+    def run_archiving(self, directory, extensions):
+        contents, efficiency = selective_archiver(directory, extensions)
+        tkinter.messagebox.showinfo("Archiving Complete", "Archiving is complete")
+        print('Files in ZIP:', contents)
+        print('Compression Efficiency: {:.2f}'.format(efficiency))
 
     def show_help_popup(self):
         popup = Toplevel(self)
