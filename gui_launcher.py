@@ -3,7 +3,7 @@
 import threading
 import customtkinter as ctk
 import tkinter.messagebox
-from tkinter import Label
+from tkinter import Label, filedialog
 from PIL import Image, ImageTk
 from pathlib import Path
 
@@ -55,11 +55,13 @@ class BulkArchiver(ctk.CTkFrame):
         self.title_label = ctk.CTkLabel(self, text="Bulk Archiver", font=("Arial", 25))
         self.title_label.pack()
 
-        # Input for Directory
+        # Browse for Directory
         self.directory_label = ctk.CTkLabel(self, text='Directory:')
         self.directory_label.pack(padx=20, pady=10)
         self.directory_entry = ctk.CTkEntry(self)
         self.directory_entry.pack(padx=20, pady=10)
+        self.browse_button = ctk.CTkButton(self, text='Browse', command=self.browse_directory)
+        self.browse_button.pack(padx=20, pady=10)
 
         # Input for excluded extensions
         self.exclude_label = ctk.CTkLabel(self, text='Exclude Extensions (comma-separated):')
@@ -84,6 +86,12 @@ class BulkArchiver(ctk.CTkFrame):
         tkinter.messagebox.showinfo("Archiving Complete", "Archiving is complete")
         print('Files in ZIP:', contents)
         print('Compression Efficiency: {:.2f}'.format(efficiency))
+
+    def browse_directory(self):
+        directory = filedialog.askdirectory()
+        if directory:
+            self.directory_entry.delete(0, 'end')
+            self.directory_entry.insert(0, directory)
 
 
 app = App()
