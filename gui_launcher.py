@@ -3,18 +3,54 @@
 import threading
 import customtkinter as ctk
 import tkinter.messagebox
+from tkinter import Label, Canvas
+from PIL import Image, ImageTk
+from pathlib import Path
 
 from bulkArchiver import bulk_archiver
 
 
 class App(ctk.CTk):
-
     def __init__(self):
         super().__init__()
         self.geometry('800x600')
         self.title('File Management Toolkit')
 
-        # Input for directory
+        # Side frame
+        self.sidebar_frame = ctk.CTkFrame(self, width=200, corner_radius=0)
+        self.sidebar_frame.pack(side='left', fill='y')
+
+        # Main content frame
+        self.main_frame = ctk.CTkFrame(self)
+        self.main_frame.pack(side='right', fill='both', expand=True)
+
+        # Initialize BulkArchiver
+        self.bulk_archiver = BulkArchiver(self.main_frame)
+        self.show_archiver_button = ctk.CTkButton(self.sidebar_frame, text='Bulk Archiver',
+                                                  command=self.show_bulk_archiver)
+        self.show_archiver_button.pack(pady=10)
+
+    def show_bulk_archiver(self):
+        # Clear the main frame and display BulkArchiver
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+        self.bulk_archiver = BulkArchiver(self.main_frame)
+        self.bulk_archiver.pack(fill='both', expand=True)
+
+
+class BulkArchiver(ctk.CTkFrame):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        # Logo
+        base_path = Path(__file__).parent
+        logo_path = base_path / 'static' / 'logo.png'
+        pil_image = Image.open(logo_path)
+        pil_image = pil_image.resize((100, 100), Image.Resampling.LANCZOS)
+        self.logo_image = ImageTk.PhotoImage(pil_image)
+        self.logo_label = Label(self, image=self.logo_image, bg=self['bg'], borderwidth=0, highlightthickness=0)
+        self.logo_label.pack(pady=20)
+
         self.directory_label = ctk.CTkLabel(self, text='Directory:')
         self.directory_label.pack(padx=20, pady=10)
         self.directory_entry = ctk.CTkEntry(self)
