@@ -1,4 +1,4 @@
-# Launcher for Graphical User Interface
+# Launcher for GUI
 
 import threading
 import customtkinter as ctk
@@ -8,6 +8,7 @@ from PIL import Image, ImageTk
 from pathlib import Path
 
 from bulkArchiver import bulk_archiver
+from selectiveArchiver import selective_archiver
 
 
 class App(ctk.CTk):
@@ -30,12 +31,25 @@ class App(ctk.CTk):
                                                   command=self.show_bulk_archiver)
         self.show_archiver_button.pack(pady=10)
 
+        # Initialize SelectiveArchiver
+        self.selective_archiver = SelectiveArchiver(self.main_frame)
+        self.show_archiver_button = ctk.CTkButton(self.sidebar_frame, text='Selective Archiver',
+                                                  command=self.show_selective_archiver)
+        self.show_archiver_button.pack(pady=10)
+
+    # Clear the main frame and display BulkArchiver
     def show_bulk_archiver(self):
-        # Clear the main frame and display BulkArchiver
         for widget in self.main_frame.winfo_children():
             widget.destroy()
         self.bulk_archiver = BulkArchiver(self.main_frame)
         self.bulk_archiver.pack(fill='both', expand=True)
+
+    # Clear the main frame and display SelectiveArchiver
+    def show_selective_archiver(self):
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+        self.selective_archiver = SelectiveArchiver(self.main_frame)
+        self.selective_archiver.pack(fill='both', expand=True)
 
 
 class BulkArchiver(ctk.CTkFrame):
@@ -100,7 +114,7 @@ class BulkArchiver(ctk.CTkFrame):
     def show_help_popup(self):
         popup = Toplevel(self)
         popup.title("Help")
-        popup.geometry("350x250")  # Adjust size as needed
+        popup.geometry("350x250")
         Label(popup, text='''
         Bulk Archiver - File Management Toolkit
         ---------------------------------------
@@ -118,5 +132,11 @@ class BulkArchiver(ctk.CTkFrame):
               justify="left").pack(padx=10, pady=10)
 
 
-app = App()
-app.mainloop()
+class SelectiveArchiver(ctk.CTkFrame):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+
+if __name__ == '__main__':
+    app = App()
+    app.mainloop()
