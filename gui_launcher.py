@@ -51,6 +51,11 @@ class BulkArchiver(ctk.CTkFrame):
         self.logo_label = Label(self, image=self.logo_image, bg=self['bg'], borderwidth=0, highlightthickness=0)
         self.logo_label.pack(pady=20)
 
+        # Title text
+        self.title_label = ctk.CTkLabel(self, text="Bulk Archiver", font=("Arial", 25))
+        self.title_label.pack()
+
+        # Input for Directory
         self.directory_label = ctk.CTkLabel(self, text='Directory:')
         self.directory_label.pack(padx=20, pady=10)
         self.directory_entry = ctk.CTkEntry(self)
