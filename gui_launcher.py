@@ -29,13 +29,13 @@ class App(ctk.CTk):
         self.bulk_archiver = BulkArchiver(self.main_frame)
         self.show_archiver_button = ctk.CTkButton(self.sidebar_frame, text='Bulk Archiver',
                                                   command=self.show_bulk_archiver)
-        self.show_archiver_button.pack(pady=10)
+        self.show_archiver_button.pack(padx=10, pady=5)
 
         # Initialize SelectiveArchiver
         self.selective_archiver = SelectiveArchiver(self.main_frame)
         self.show_archiver_button = ctk.CTkButton(self.sidebar_frame, text='Selective Archiver',
                                                   command=self.show_selective_archiver)
-        self.show_archiver_button.pack(pady=10)
+        self.show_archiver_button.pack(padx=10, pady=1)
 
     # Clear the main frame and display BulkArchiver
     def show_bulk_archiver(self):
