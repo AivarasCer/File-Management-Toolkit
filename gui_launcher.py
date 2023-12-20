@@ -29,13 +29,19 @@ class App(ctk.CTk):
         self.bulk_archiver = BulkArchiver(self.main_frame)
         self.show_archiver_button = ctk.CTkButton(self.sidebar_frame, text='Bulk Archiver',
                                                   command=self.show_bulk_archiver)
-        self.show_archiver_button.pack(padx=10, pady=5)
+        self.show_archiver_button.pack(padx=10, pady=3)
 
         # Initialize SelectiveArchiver
         self.selective_archiver = SelectiveArchiver(self.main_frame)
         self.show_archiver_button = ctk.CTkButton(self.sidebar_frame, text='Selective Archiver',
                                                   command=self.show_selective_archiver)
-        self.show_archiver_button.pack(padx=10, pady=1)
+        self.show_archiver_button.pack(padx=10, pady=3)
+
+        # Initialize DirOrganizer
+        self.dir_organizer = DirOrganiser(self.main_frame)
+        self.show_organizer_button = ctk.CTkButton(self.sidebar_frame,
+                                                   text='Directory Organizer', command=self.show_dir_organizer)
+        self.show_organizer_button.pack(padx=10, pady=3)
 
     # Clear the main frame and display BulkArchiver
     def show_bulk_archiver(self):
@@ -50,6 +56,13 @@ class App(ctk.CTk):
             widget.destroy()
         self.selective_archiver = SelectiveArchiver(self.main_frame)
         self.selective_archiver.pack(fill='both', expand=True)
+
+    # Clear the main frame and display SelectiveArchiver
+    def show_dir_organizer(self):
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+        self.dir_organizer = DirOrganiser(self.main_frame)
+        self.dir_organizer.pack(fill='both', expand=True)
 
 
 class BulkArchiver(ctk.CTkFrame):
