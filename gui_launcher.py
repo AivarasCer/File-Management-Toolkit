@@ -223,6 +223,58 @@ class SelectiveArchiver(ctk.CTkFrame):
               justify="left").pack(padx=10, pady=10)
 
 
+class DirOrganiser(ctk.CTkFrame):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        # Logo
+        base_path = Path(__file__).parent
+        logo_path = base_path / 'static' / 'do_logo.png'
+        pil_image = Image.open(logo_path)
+        self.logo_image = ImageTk.PhotoImage(pil_image)
+        self.logo_label = Label(self, image=self.logo_image, bg=self['bg'], borderwidth=0, highlightthickness=0)
+        self.logo_label.pack(pady=20)
+
+        # Title text
+        self.title_label = ctk.CTkLabel(self, text="Directory Organizer", font=("Arial", 25))
+        self.title_label.pack()
+
+        # Help button
+        self.help_button = ctk.CTkButton(self, text='?', width=20, height=20, command=self.show_help_popup)
+        self.help_button.place(relx=1.0, rely=0.0, x=-20, y=20, anchor="ne")
+
+    def show_help_popup(self):
+        popup = Toplevel(self)
+        popup.title("Help")
+        popup.geometry("800x450")
+        Label(popup, text='''Directory Organizer - File Management Tool
+        ------------------------------------------
+        This tool helps you organize files in a specified directory based on certain criteria.
+        
+        Features:
+        1. Organize by Type:
+           Automatically sorts files into folders based on their file type.
+           For example, all .jpg files go into a 'Jpg' folder, all .docx files into a 'Docx' folder, etc.
+        
+        2. Organize by Name:
+           Sorts files into a specified folder based on a regex pattern in their names.
+           You can define a custom regex pattern and the name of the destination folder.
+        
+        3. Organize by Date:
+           Organizes files into folders based on their modification date.
+           Each folder is named with the date of modification, and files are moved accordingly.
+        
+        How to Use:
+        - Choose the directory you want to organize.
+        - Select the method of organization:
+          1) By Type: Files will be organized into folders named after their file types.
+          2) By Name: Provide a regex pattern and a folder name. Files matching the pattern will be moved to the specified folder.
+          3) By Date: Files will be organized into folders named by their modification dates.
+        - Confirm your choice, and the program will organize the files accordingly.
+        
+        Note: Ensure you have the necessary permissions to modify the contents of the directory. ''',
+              justify="left").pack(padx=10, pady=10)
+
 if __name__ == '__main__':
     app = App()
     app.mainloop()
