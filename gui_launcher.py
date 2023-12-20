@@ -3,7 +3,7 @@
 import threading
 import customtkinter as ctk
 import tkinter.messagebox
-from tkinter import Label, filedialog, messagebox
+from tkinter import Label, filedialog, Toplevel
 from PIL import Image, ImageTk
 from pathlib import Path
 
@@ -74,8 +74,8 @@ class BulkArchiver(ctk.CTkFrame):
         self.archive_button.pack(padx=20, pady=10)
 
         # Help button
-        self.help_button = ctk.CTkButton(self, text="Help", command=self.show_help_info)
-        self.help_button.pack(padx=20, pady=10)
+        self.help_button = ctk.CTkButton(self, text='?', width=20, height=20, command=self.show_help_popup)
+        self.help_button.place(relx=1.0, rely=0.0, x=-20, y=20, anchor="ne")
 
     def archive_files(self):
         directory = self.directory_entry.get()
@@ -97,12 +97,15 @@ class BulkArchiver(ctk.CTkFrame):
             self.directory_entry.delete(0, 'end')
             self.directory_entry.insert(0, directory)
 
-    def show_help_info(self):
-        help_text = """
+    def show_help_popup(self):
+        popup = Toplevel(self)
+        popup.title("Help")
+        popup.geometry("350x250")  # Adjust size as needed
+        Label(popup, text='''
         Bulk Archiver - File Management Toolkit
         ---------------------------------------
         This program helps you to archive files in a selected directory.
-        
+
         Features:
         - Browse and select a directory to archive.
         - Exclude specific file extensions from archiving.
@@ -111,9 +114,8 @@ class BulkArchiver(ctk.CTkFrame):
         How to Use:
         1. Click 'Browse' to select a directory.
         2. Enter file extensions to exclude (optional).
-        3. Click 'Archive' to start the archiving process.
-        """
-        messagebox.showinfo("Help - Bulk Archiver", help_text)
+        3. Click 'Archive' to start the archiving process.''',
+              justify="left").pack(padx=10, pady=10)
 
 
 app = App()
