@@ -43,6 +43,12 @@ class App(ctk.CTk):
                                                    text='Directory Organizer', command=self.show_dir_organizer)
         self.show_organizer_button.pack(padx=10, pady=3)
 
+        # Initialize FileRenamer
+        self.file_renamer = FileRenamer(self.main_frame)
+        self.show_renamer_button = ctk.CTkButton(self.sidebar_frame,
+                                                 text='Batch File Renamer', command=self.show_file_renamer)
+        self.show_renamer_button.pack(padx=10, pady=3)
+
     # Clear the main frame and display BulkArchiver
     def show_bulk_archiver(self):
         for widget in self.main_frame.winfo_children():
@@ -63,6 +69,13 @@ class App(ctk.CTk):
             widget.destroy()
         self.dir_organizer = DirOrganiser(self.main_frame)
         self.dir_organizer.pack(fill='both', expand=True)
+
+    # Clear the main frame and display FileRenamer
+    def show_file_renamer(self):
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+        self.file_renamer = FileRenamer(self.main_frame)
+        self.file_renamer.pack(fill='both', expand=True)
 
 
 class BulkArchiver(ctk.CTkFrame):
@@ -288,6 +301,17 @@ class DirOrganiser(ctk.CTkFrame):
         
         Note: Ensure you have the necessary permissions to modify the contents of the directory. ''',
               justify="left").pack(padx=10, pady=10)
+
+
+class FileRenamer(ctk.CTkFrame):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        # Title text
+        self.title_label = ctk.CTkLabel(self, text='Batch File Renamer', font=("Arial", 25))
+        self.title_label.pack()
+
+
 
 if __name__ == '__main__':
     app = App()
