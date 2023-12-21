@@ -49,6 +49,12 @@ class App(ctk.CTk):
                                                  text='Batch File Renamer', command=self.show_file_renamer)
         self.show_renamer_button.pack(padx=10, pady=3)
 
+        # Initialize Encryptor
+        self.encryptor = Encryptor(self.main_frame)
+        self.show_encryptor_button = ctk.CTkButton(self.sidebar_frame,
+                                                   text='File Encryptor', command=self.show_encryptor)
+        self.show_encryptor_button.pack(padx=10, pady=3)
+
     # Clear the main frame and display BulkArchiver
     def show_bulk_archiver(self):
         for widget in self.main_frame.winfo_children():
@@ -76,6 +82,13 @@ class App(ctk.CTk):
             widget.destroy()
         self.file_renamer = FileRenamer(self.main_frame)
         self.file_renamer.pack(fill='both', expand=True)
+
+    # Clear the main frame and display Encryptor
+    def show_encryptor(self):
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+        self.encryptor = Encryptor(self.main_frame)
+        self.encryptor.pack(fill='both', expand=True)
 
 
 class BulkArchiver(ctk.CTkFrame):
@@ -356,6 +369,40 @@ class FileRenamer(ctk.CTkFrame):
         - Execute to rename files accordingly.
         
         Note: Check permissions and backup important files before renaming.''',
+              justify="left").pack(padx=10, pady=10)
+
+
+class Encryptor(ctk.CTkFrame):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        # Title text
+        self.title_label = ctk.CTkLabel(self, text='Encryptor', font=("Arial", 25))
+        self.title_label.pack()
+
+        # Help button
+        self.help_button = ctk.CTkButton(self, text='?', width=20, height=20, command=self.show_help_popup)
+        self.help_button.place(relx=1.0, rely=0.0, x=-20, y=20, anchor="ne")
+
+    def show_help_popup(self):
+        popup = Toplevel(self)
+        popup.title("Help")
+        popup.geometry("550x300")
+        Label(popup, text='''File Encryptor - Secure Your Files
+        ----------------------------------
+        This tool provides encryption and decryption functionalities to secure your sensitive files.
+        
+        Features:
+        1. Encrypt: Secure a file with robust encryption.
+        2. Decrypt: Restore the original content of an encrypted file.
+        
+        Usage:
+        - Choose to encrypt or decrypt a file.
+        - Provide the full path of the file.
+        - Enter an encryption key or generate a new one.
+        - Execute the chosen action to secure or access your file.
+        
+        Note: Keep your encryption key safe. Losing it means you cannot decrypt your files.''',
               justify="left").pack(padx=10, pady=10)
 
 if __name__ == '__main__':
