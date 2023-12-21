@@ -311,7 +311,44 @@ class FileRenamer(ctk.CTkFrame):
         self.title_label = ctk.CTkLabel(self, text='Batch File Renamer', font=("Arial", 25))
         self.title_label.pack()
 
+        # Browse for Directory
+        self.directory_label = ctk.CTkLabel(self, text='Directory:')
+        self.directory_label.pack(padx=20, pady=10)
+        self.directory_entry = ctk.CTkEntry(self)
+        self.directory_entry.pack(padx=20, pady=10)
+        self.browse_button = ctk.CTkButton(self, text='Browse', command=self.browse_directory)
+        self.browse_button.pack(padx=20, pady=10)
 
+        # Help button
+        self.help_button = ctk.CTkButton(self, text='?', width=20, height=20, command=self.show_help_popup)
+        self.help_button.place(relx=1.0, rely=0.0, x=-20, y=20, anchor="ne")
+
+    def browse_directory(self):
+        directory = filedialog.askdirectory()
+        if directory:
+            self.directory_entry.delete(0, 'end')
+            self.directory_entry.insert(0, directory)
+
+    def show_help_popup(self):
+        popup = Toplevel(self)
+        popup.title("Help")
+        popup.geometry("450x300")
+        Label(popup, text='''Batch File Renamer - Quick Guide
+        --------------------------------
+        Easily rename files in a directory based on type, date, or custom patterns.
+        
+        Features:
+        1. Type: Rename files by their extension.
+        2. Date: Group and rename files by modification date.
+        3. Custom: Use a regex pattern for advanced renaming.
+        
+        Usage:
+        - Select a directory and choose a renaming method.
+        - Provide necessary details (extension, date, or pattern).
+        - Execute to rename files accordingly.
+        
+        Note: Check permissions and backup important files before renaming.''',
+              justify="left").pack(padx=10, pady=10)
 
 if __name__ == '__main__':
     app = App()
