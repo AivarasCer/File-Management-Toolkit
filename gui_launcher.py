@@ -376,8 +376,16 @@ class Encryptor(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
 
+        # Logo
+        base_path = Path(__file__).parent
+        logo_path = base_path / 'static' / 'en_logo.png'
+        pil_image = Image.open(logo_path)
+        self.logo_image = ImageTk.PhotoImage(pil_image)
+        self.logo_label = Label(self, image=self.logo_image, bg=self['bg'], borderwidth=0, highlightthickness=0)
+        self.logo_label.pack(pady=20)
+
         # Title text
-        self.title_label = ctk.CTkLabel(self, text='Encryptor', font=("Arial", 25))
+        self.title_label = ctk.CTkLabel(self, text='File Encryptor', font=("Arial", 25))
         self.title_label.pack()
 
         # Help button
