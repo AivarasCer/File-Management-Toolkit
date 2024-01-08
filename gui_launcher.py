@@ -380,16 +380,15 @@ class FileRenamer(ctk.CTkFrame):
         popup.geometry("450x300")
         Label(popup, text='''Batch File Renamer - Quick Guide
         --------------------------------
-        Easily rename files in a directory based on type, date, or custom patterns.
+        Easily rename files in a directory based on type or date.
         
         Features:
         1. Type: Rename files by their extension.
         2. Date: Group and rename files by modification date.
-        3. Custom: Use a regex pattern for advanced renaming.
         
         Usage:
         - Select a directory and choose a renaming method.
-        - Provide necessary details (extension, date, or pattern).
+        - Provide necessary details (extension or date).
         - Execute to rename files accordingly.
         
         Note: Check permissions and backup important files before renaming.''',
