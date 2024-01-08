@@ -10,6 +10,7 @@ from pathlib import Path
 from bulkArchiver import bulk_archiver
 from selectiveArchiver import selective_archiver
 from directoryOrganiser import DirectoryOrganiser
+from fileEncryptor import FileEncryptor
 
 
 class App(ctk.CTk):
@@ -330,6 +331,7 @@ class DirOrganiser(ctk.CTkFrame):
 class Encryptor(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
+        self.encryptor = FileEncryptor()
 
         # Logo
         base_path = Path(__file__).parent
@@ -343,9 +345,57 @@ class Encryptor(ctk.CTkFrame):
         self.title_label = ctk.CTkLabel(self, text='File Encryptor', font=("Arial", 25))
         self.title_label.pack()
 
+        # File selection
+        self.file_label = ctk.CTkLabel(self, text='File:')
+        self.file_label.pack(padx=20, pady=10)
+        self.file_entry = ctk.CTkEntry(self)
+        self.file_entry.pack(padx=20, pady=10)
+        self.browse_button = ctk.CTkButton(self, text='Browse', command=self.browse_file)
+        self.browse_button.pack(padx=20, pady=10)
+
+        # Key input
+        self.key_label = ctk.CTkLabel(self, text='Encryption Key:')
+        self.key_label.pack(padx=20, pady=10)
+        self.key_entry = ctk.CTkEntry(self)
+        self.key_entry.pack(padx=20, pady=10)
+        self.generate_key_button = ctk.CTkButton(self, text='Generate Key', command=self.generate_key)
+        self.generate_key_button.pack(padx=20, pady=10)
+
+        # Encrypt/Decrypt buttons
+        self.encrypt_button = ctk.CTkButton(self, text='Encrypt', command=self.encrypt_file)
+        self.encrypt_button.pack(padx=20, pady=10)
+        self.decrypt_button = ctk.CTkButton(self, text='Decrypt', command=self.decrypt_file)
+        self.decrypt_button.pack(padx=20, pady=10)
+
         # Help button
         self.help_button = ctk.CTkButton(self, text='?', width=20, height=20, command=self.show_help_popup)
         self.help_button.place(relx=1.0, rely=0.0, x=-20, y=20, anchor="ne")
+
+    def browse_file(self):
+        file_path = filedialog.askopenfilename()
+        if file_path:
+            self.file_entry.delete(0, 'end')
+            self.file_entry.insert(0, file_path)
+
+    def generate_key(self):
+        key = FileEncryptor.generate_key()
+        self.key_entry.delete(0, 'end')
+        self.key_entry.insert(0, key.decode())
+        tkinter.messagebox.showinfo("Key Generated", "A new encryption key has been generated. Keep it safe!")
+
+    def encrypt_file(self):
+        file_path = self.file_entry.get()
+        key = self.key_entry.get().encode()
+        self.encryptor = FileEncryptor(key)
+        self.encryptor.encrypt_file(file_path)
+        tkinter.messagebox.showinfo("Encryption", f"File {file_path} encrypted successfully.")
+
+    def decrypt_file(self):
+        file_path = self.file_entry.get()
+        key = self.key_entry.get().encode()
+        self.encryptor = FileEncryptor(key)
+        self.encryptor.decrypt_file(file_path)
+        tkinter.messagebox.showinfo("Decryption", f"File {file_path} decrypted successfully.")
 
     def show_help_popup(self):
         popup = Toplevel(self)
