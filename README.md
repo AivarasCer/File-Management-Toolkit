@@ -22,5 +22,13 @@ This repository hosts a collection of Python scripts designed to streamline file
 - File Encryption/Decryption: Provides added security for sensitive documents through encryption and decryption capabilities.
 - Multi-Clipboard: This utility is for seamlessly saving and retrieving text snippets to and from the clipboard, enhancing productivity with simple command-line interactions.
 
-
 Each script is self-contained and documented with instructions on usage and requirements. Clone the repository, install `requirements.txt` and navigate to the script that fits your task. Scripts are designed to be user-friendly, requiring minimal setup.
+
+### GUI Launcher (`gui_launcher.py`):
+The GUI Launcher is an interactive graphical interface for the File Management Toolkit. It provides a user-friendly way to access and use the various tools in the toolkit. With the GUI Launcher, you can:
+
+- Easily navigate between different file management utilities.
+- Perform tasks like archiving, renaming, organizing, and encrypting files with just a few clicks.
+- Access help and instructions for each tool directly within the interface.
+
+To use the GUI Launcher, simply run `gui_launcher.py` after cloning the repository and installing the necessary requirements.
