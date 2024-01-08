@@ -9,6 +9,7 @@ from pathlib import Path
 
 from bulkArchiver import bulk_archiver
 from selectiveArchiver import selective_archiver
+from directoryOrganiser import DirectoryOrganiser
 
 
 class App(ctk.CTk):
@@ -194,7 +195,7 @@ class SelectiveArchiver(ctk.CTkFrame):
         self.browse_button = ctk.CTkButton(self, text='Browse', command=self.browse_directory)
         self.browse_button.pack(padx=20, pady=10)
 
-        # Input for extensions to archieve
+        # Input for extensions to archive
         self.exclude_label = ctk.CTkLabel(self, text='Enter Extensions (comma-separated):')
         self.exclude_label.pack(padx=20, pady=10)
         self.exclude_entry = ctk.CTkEntry(self)
@@ -253,6 +254,8 @@ class DirOrganiser(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
 
+        self.organiser = DirectoryOrganiser('')
+
         # Logo
         base_path = Path(__file__).parent
         logo_path = base_path / 'static' / 'do_logo.png'
@@ -273,6 +276,19 @@ class DirOrganiser(ctk.CTkFrame):
         self.browse_button = ctk.CTkButton(self, text='Browse', command=self.browse_directory)
         self.browse_button.pack(padx=20, pady=10)
 
+        # Organize method choice dropdown
+        self.method_label = ctk.CTkLabel(self, text='Choose method:')
+        self.method_label.pack(padx=20, pady=10)
+
+        self.method_options = ["Type", "Date"]
+        self.method_dropdown = ctk.CTkComboBox(self, values=self.method_options)
+        self.method_dropdown.set("Select Method")
+        self.method_dropdown.pack(padx=20, pady=10)
+
+        # Organize button
+        self.organize_button = ctk.CTkButton(self, text='Organize', command=self.organise_files)
+        self.organize_button.pack(padx=20, pady=10)
+
         # Help button
         self.help_button = ctk.CTkButton(self, text='?', width=20, height=20, command=self.show_help_popup)
         self.help_button.place(relx=1.0, rely=0.0, x=-20, y=20, anchor="ne")
@@ -282,6 +298,19 @@ class DirOrganiser(ctk.CTkFrame):
         if directory:
             self.directory_entry.delete(0, 'end')
             self.directory_entry.insert(0, directory)
+
+    def organise_files(self):
+        directory = self.directory_entry.get()
+        method = self.method_dropdown.get()
+
+        self.organiser = DirectoryOrganiser(directory)  # Initialize DirectoryOrganiser with the selected directory
+
+        if method == 'Type':
+            self.organiser.organise_by_type()
+        elif method == 'Date':
+            self.organiser.organise_by_date()
+        else:
+            print('Invalid or no method selected.')
 
     def show_help_popup(self):
         popup = Toplevel(self)
