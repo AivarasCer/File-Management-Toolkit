@@ -325,11 +325,7 @@ class DirOrganiser(ctk.CTkFrame):
            Automatically sorts files into folders based on their file type.
            For example, all .jpg files go into a 'Jpg' folder, all .docx files into a 'Docx' folder, etc.
         
-        2. Organize by Name:
-           Sorts files into a specified folder based on a regex pattern in their names.
-           You can define a custom regex pattern and the name of the destination folder.
-        
-        3. Organize by Date:
+        2. Organize by Date:
            Organizes files into folders based on their modification date.
            Each folder is named with the date of modification, and files are moved accordingly.
         
@@ -337,8 +333,7 @@ class DirOrganiser(ctk.CTkFrame):
         - Choose the directory you want to organize.
         - Select the method of organization:
           1) By Type: Files will be organized into folders named after their file types.
-          2) By Name: Provide a regex pattern and a folder name. Files matching the pattern will be moved to the specified folder.
-          3) By Date: Files will be organized into folders named by their modification dates.
+          2) By Date: Files will be organized into folders named by their modification dates.
         - Confirm your choice, and the program will organize the files accordingly.
         
         Note: Ensure you have the necessary permissions to modify the contents of the directory. ''',
