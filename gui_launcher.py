@@ -44,12 +44,6 @@ class App(ctk.CTk):
                                                    text='Directory Organizer', command=self.show_dir_organizer)
         self.show_organizer_button.pack(padx=10, pady=3)
 
-        # Initialize FileRenamer
-        self.file_renamer = FileRenamer(self.main_frame)
-        self.show_renamer_button = ctk.CTkButton(self.sidebar_frame,
-                                                 text='Batch File Renamer', command=self.show_file_renamer)
-        self.show_renamer_button.pack(padx=10, pady=3)
-
         # Initialize Encryptor
         self.encryptor = Encryptor(self.main_frame)
         self.show_encryptor_button = ctk.CTkButton(self.sidebar_frame,
@@ -76,13 +70,6 @@ class App(ctk.CTk):
             widget.destroy()
         self.dir_organizer = DirOrganiser(self.main_frame)
         self.dir_organizer.pack(fill='both', expand=True)
-
-    # Clear the main frame and display FileRenamer
-    def show_file_renamer(self):
-        for widget in self.main_frame.winfo_children():
-            widget.destroy()
-        self.file_renamer = FileRenamer(self.main_frame)
-        self.file_renamer.pack(fill='both', expand=True)
 
     # Clear the main frame and display Encryptor
     def show_encryptor(self):
@@ -303,7 +290,7 @@ class DirOrganiser(ctk.CTkFrame):
         directory = self.directory_entry.get()
         method = self.method_dropdown.get()
 
-        self.organiser = DirectoryOrganiser(directory)  # Initialize DirectoryOrganiser with the selected directory
+        self.organiser = DirectoryOrganiser(directory)
 
         if method == 'Type':
             self.organiser.organise_by_type()
@@ -337,61 +324,6 @@ class DirOrganiser(ctk.CTkFrame):
         - Confirm your choice, and the program will organize the files accordingly.
         
         Note: Ensure you have the necessary permissions to modify the contents of the directory. ''',
-              justify="left").pack(padx=10, pady=10)
-
-
-class FileRenamer(ctk.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(parent)
-
-        # Logo
-        base_path = Path(__file__).parent
-        logo_path = base_path / 'static' / 'fr_logo.png'
-        pil_image = Image.open(logo_path)
-        self.logo_image = ImageTk.PhotoImage(pil_image)
-        self.logo_label = Label(self, image=self.logo_image, bg=self['bg'], borderwidth=0, highlightthickness=0)
-        self.logo_label.pack(pady=20)
-
-        # Title text
-        self.title_label = ctk.CTkLabel(self, text='Batch File Renamer', font=("Arial", 25))
-        self.title_label.pack()
-
-        # Browse for Directory
-        self.directory_label = ctk.CTkLabel(self, text='Directory:')
-        self.directory_label.pack(padx=20, pady=10)
-        self.directory_entry = ctk.CTkEntry(self)
-        self.directory_entry.pack(padx=20, pady=10)
-        self.browse_button = ctk.CTkButton(self, text='Browse', command=self.browse_directory)
-        self.browse_button.pack(padx=20, pady=10)
-
-        # Help button
-        self.help_button = ctk.CTkButton(self, text='?', width=20, height=20, command=self.show_help_popup)
-        self.help_button.place(relx=1.0, rely=0.0, x=-20, y=20, anchor="ne")
-
-    def browse_directory(self):
-        directory = filedialog.askdirectory()
-        if directory:
-            self.directory_entry.delete(0, 'end')
-            self.directory_entry.insert(0, directory)
-
-    def show_help_popup(self):
-        popup = Toplevel(self)
-        popup.title("Help")
-        popup.geometry("450x300")
-        Label(popup, text='''Batch File Renamer - Quick Guide
-        --------------------------------
-        Easily rename files in a directory based on type or date.
-        
-        Features:
-        1. Type: Rename files by their extension.
-        2. Date: Group and rename files by modification date.
-        
-        Usage:
-        - Select a directory and choose a renaming method.
-        - Provide necessary details (extension or date).
-        - Execute to rename files accordingly.
-        
-        Note: Check permissions and backup important files before renaming.''',
               justify="left").pack(padx=10, pady=10)
 
 
